@@ -1,0 +1,376 @@
+\documentclass{article}
+\usepackage[landscape]{geometry}
+\usepackage{url}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{esint}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing}
+\usepackage{amsmath,amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\makeatletter
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\m}{\cdot}
+\newcommand{\vect}[1]{\mathbf{#1}} 
+
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+\title{Analysis 2 Cheat Sheet}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+
+\advance\topmargin-.8in
+\advance\textheight3in
+\advance\textwidth3in
+\advance\oddsidemargin-1.5in
+\advance\evensidemargin-1.5in
+\parindent0pt
+\parskip2pt
+\newcommand{\hr}{\centerline{\rule{3.5in}{1pt}}}
+%\colorbox[HTML]{e4e4e4}{\makebox[\textwidth-2\fboxsep][l]{texto}
+\begin{document}
+
+
+\begin{multicols*}{3}
+
+\tikzstyle{mybox} = [draw=black, fill=white, very thick,
+    rectangle, rounded corners, inner sep=10pt, inner ysep=10pt]
+\tikzstyle{fancytitle} =[fill=black, text=white, font=\bfseries]
+
+
+Sei im folgenden $X$ ein normierter Vektorraum, $A \subseteq X$, $f:A\to \R$ eine Funktion und $\vect x^0 \in A$.\newline
+%------------ Globales/Lokales Minimum/Maximum allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    $f$ hat in $\vect x^0$ ein \textcolor{red}{(strenges) globales Maximum}, wenn $\forall \vect x \in A\backslash \{\vect x^0\}: f(\vect x) \leq f(\vect x^0)$ \hspace{5pt} (bzw. \hspace{5pt} $f(\vect x) < f(\vect x^0)$)\\
+    \newline
+    $f$ hat in $\vect x^0$ ein \textcolor{red}{(strenges) globales Minimum}, wenn $\forall \vect x \in A\backslash \{\vect x^0\}: f(\vect x) \geq f(\vect x^0)$ \hspace{5pt} (bzw. \hspace{5pt} $f(\vect x) > f(\vect x^0)$)\\
+    \newline
+    $f$ hat in $\vect x^0$ ein \textcolor{red}{(strenges) lokales Maximum}, wenn $\exists \varepsilon > 0 \forall \vect x \in B_{\varepsilon}(\vect x^0) \cap A\backslash \{\vect x^0\}: f(\vect x) \leq f(\vect x^0)$ \hspace{5pt} (bzw. \hspace{5pt} $f(\vect x) < f(\vect x^0)$)\\
+    \newline
+    $f$ hat in $\vect x^0$ ein \textcolor{red}{(strenges) lokales Minimum}, wenn $\exists \varepsilon > 0 \forall \vect x \in B_{\varepsilon}(\vect x^0) \cap A\backslash \{\vect x^0\}: f(\vect x) \geq f(\vect x^0)$ \hspace{5pt} (bzw. \hspace{5pt} $f(\vect x) > f(\vect x^0)$)\\
+    \newline
+    \textbf{\textcolor{red}{!}} Jedes globale Minimum/Maximum ist auch ein lokales Minimum/Maximum.
+    \end{minipage}
+};
+
+%------------ Globales/Lokales Minimum/Maximum Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Globales/Lokales Minimum/Maximum};
+\end{tikzpicture}
+
+%------------ Min-Max Dualität allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Wenn $f$ in $\vect x^0$ ein lokales Minimum (Maximum) hat, dann hat $-f$ in $\vect x^0$ ein lokales Maximum (Minimum).
+    \end{minipage}
+};
+
+%------------ Min-Max Dualität Header ---------------------
+\node[fancytitle, fill = blue, right=10pt] at (box.north west) {Min-Max Dualität};
+\end{tikzpicture}
+
+%------------ Kompakte Mengen allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Wir nennen $A$ \textcolor{red}{kompakt}, wenn jede Folge in $A$ eine konvergente Teilfolge hat, deren Grenzwert in $A$ liegt.
+    \end{minipage}
+};
+
+%------------ Kompakte Mengen Header ---------------------
+\node[fancytitle, fill = black, right=10pt] at (box.north west) {Kompakte Mengen};
+\end{tikzpicture}
+
+%------------ Kompakte Mengen Satz allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \begin{itemize}
+        \item Ist $A$ kompakt, so ist $A$ abgeschlossen und beschränkt.
+        \item Ist $A$ kompakt und $B \subseteq A$ abgeschlossen, so ist $B$ kompakt.
+        \item (Satz von Heine-Borel) Für $A \subseteq \K^n$ gilt:\\
+        $A$ ist kompakt $\iff A $ ist abgeschlossen und beschränkt
+        \item Sei $Y$ ein normierter VR, $A$ kompakt und\\$f:A \to Y$ eine stetige Funktion, dann ist $f(A)$ kompakt in $Y$.
+        \item Ist $A$ kompakt und $f$ stetig, so $\exists \vect x_m, \vect x_M \in A$, so dass $f$ in $\vect x_m$ ein globales Minimum und in $\vect x_M$ ein globales Maximum hat.
+    \end{itemize}
+    \end{minipage}
+};
+
+%------------ Kompakte Mengen Satz Header ---------------------
+\node[fancytitle, fill = blue, right=10pt] at (box.north west) {Kompakte Mengen Sätze};
+\end{tikzpicture}
+
+%------------ Satz von Taylor allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Ist $I \subseteq \R$ ein offenes Intervall und $a, x \in I$ und $x \neq a$. Ist $f \in C^{m+1}(I,\K)$ für $m \in \N_0$, so gilt:\\
+    $f(x) = T_m(x,a) + R_m(x,a)$, wobei \\
+    \[T_m(x,a) := \sum_{k=0}^m \frac{f^{(k)}(a)}{k!}(x-a)^k \] und
+    \[R_m(x,a) := \int_{a}^x \frac{f^{(m+1)}(t)}{m!}(x-t)^m dt  \] Wir nennen $T_m(x,a)$ das \textcolor{red}{m-te Taylorpolynom an der Stelle $a$} und $R_m(x,a)$ das \textcolor{red}{m-te Restglied (in Integralform)}\\
+    \newline
+    Für $\K = \R$ gilt ausserdem: Es existiert ein $\theta$ im Intervall $(x,a)$ bzw. $(a,x)$, für das gilt:\\
+    \[R_m(x,a) = \frac{f^{(m+1)}(\theta)}{(m+1)!}(x-a)^{(m+1)}\]\\
+    Wir nennen das dann das \textcolor{red}{m-te Restglied (in Lagrangeform)}
+    \end{minipage}
+};
+
+%------------ Satz von Taylor Header ---------------------
+\node[fancytitle, fill = blue, right=10pt] at (box.north west) {Satz von Taylor in $\R$};
+\end{tikzpicture}
+
+%------------ Satz von Taylor mehrdimensional allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Ist $A \subseteq \R^n$ offen und $\vect x^0, \vect x \in A$ und die Strecke zwischen $\vect x$ und $\vect x^0$ liegt komplett in $A$. Ist $f \in C^{m+1}(A,\K)$ für $m \in \N_0$, so gilt:\\
+    $f(\vect x) = T_m(\vect x,\vect x^0) + R_m(\vect x,\vect x^0)$, wobei \\
+    \begin{align*}
+        &T_m(\vect x,\vect x^0):= f(\vect x^0) + \sum_{j=1}^n \partial_j \frac{1}{1!} f(\vect x^0)(x_j- x_j^0) \\ 
+        & + \sum_{j=1}^n\sum_{i=1}^n \frac{1}{2!}\partial_i\partial_j f(\vect x^0)(x_j - x_j^0)(x_i-x_i^0) + \dots \\
+        & +  \sum_{j_1, \dots, j_m=1}^n \frac{1}{m!}\partial_{j_1}\dots \partial_{j_m} f(\vect x^0)\prod_{k = 1}^m (x_{j_k}-x_{j_k}^0)
+    \end{align*}
+    Formel für $R_m(\vect x, \vect x^0)$ wird hier weggelassen.\\
+    Wir nennen $T_m(\vect x,\vect x^0)$ das \textcolor{red}{m-te Taylorpolynom an der Stelle $\vect x^0$}\\
+    \newline
+    Es existiert ein $\vect{\theta}$ auf der Verbindungsstrecke von $\vect x$ und  $\vect x^0$ für das gilt:\\
+    \begin{align*}
+    & R_m(\vect x,\vect x^0) = \\
+    & \sum_{j_1, \dots, j_{m+1}=1}^n \frac{1}{(m+1)!}\partial_{j_1}\dots \partial_{j_{m+1}} f(\vect{\theta})\prod_{k = 1}^m (x_{j_k}-x_{j_k}^0)
+    \end{align*}
+    Wir nennen das dann das \textcolor{red}{n-te Restglied (in Lagrangeform)}
+    \end{minipage}
+};
+
+%------------ Satz von Taylor mehrdimensional Header ---------------------
+\node[fancytitle, fill = blue, right=10pt] at (box.north west) {Satz von Taylor in $\R^n$};
+\end{tikzpicture}
+
+%------------ Satz von Taylor für n=2 allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}Satz von Fermat
+    Sind die Bedingungen aus dem Satz von Taylor alle erfüllt, so gilt für $n = 2$
+    \begin{align*}
+        T_2(\vect x,\vect x^0):= &f(\vect x^0) + \nabla f(\vect x^0)(\vect x - \vect x^0)\\& + \frac12 (\vect x - \vect x^0)^{\top} H_f(\vect x^0) (\vect x - \vect x^0)
+    \end{align*}
+    wobei $\nabla f(\vect x^0)(\vect x - \vect x^0)$ als Skalarprodukt zu verstehen ist und $H_f(\vect x^0)$ die Hessematrix von $f$ an der Stelle $\vect x^0$ ist:\\
+    $H_f(\vect x^0) = \begin{pmatrix} \partial_x \partial_x f(\vect x^0) & \partial_x \partial_y f(\vect x^0) \\ \partial_y \partial_x f(\vect x^0) & \partial_y \partial_y f(\vect x^0)\end{pmatrix}$
+    \end{minipage}
+};
+
+%------------ Satz von Taylor für n=2 Header ---------------------
+\node[fancytitle, fill = purple, right=10pt] at (box.north west) {Satz von Taylor für $n = 2$};
+\end{tikzpicture}
+
+\newpage
+Sei im folgenden $A = (a_{ij})$ eine symmetrische $n \times n$-Matrix.\\
+
+%------------ Quadratische Formen allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Eine \textcolor{red}{quadratische Form} ist eine Abbildung\\
+    $Q_A: \R^n \to \R, Q_A(\vect x) := \vect x^{\top}A\vect x = \sum_{i=1}^n\sum_{j = 1}^n a_{ij}x_ix_j$
+    \end{minipage}
+};
+
+%------------ Quadratische Formen Header ---------------------
+\node[fancytitle, fill = black, right=10pt] at (box.north west) {Quadratische Form};
+\end{tikzpicture}
+
+
+
+%------------ Hilbert Schmid Norm allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Für eine beliebige $(m\times n)$-Matrix $A$ definieren wir die \textcolor{red}{Frobenius-Norm} als:\\
+    
+    $\Vert A \Vert_F := \sqrt{\sum_{i=1}^n \sum_{j=1}^n a_{ij}^2} = \sqrt{trace(A^{\top}A)}$
+    \\
+    \\
+    Es gilt $\forall \vect x \in \R^n: \Vert A\vect x \Vert_2 \leq \Vert A \Vert_F \cdot \Vert \vect x \Vert_2$
+    \end{minipage}
+};
+
+%------------ Hilbert Schmid Norm Header ---------------------
+\node[fancytitle, fill = black, right=10pt] at (box.north west) {Frobenius/Hilbert-Schmid Norm };
+\end{tikzpicture}
+
+
+%------------ Quadratische Formen Satz allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \begin{itemize}
+        \item Quadratische Formen sind Polynome und somit stetig.
+        \item Für $\lambda \in \R$ und $A,B \in \R^{n\times n}$ symmetrisch gilt $Q_{\lambda A + B} = \lambda Q_A + Q_B$.
+        \item $Q_A$ ist homogen vom Grad 2. D.h.\\ $\forall \lambda \in \R, \forall \vect x \in \R^n: Q_A(\lambda \vect x) = \lambda^2 Q_A(\vect x)$
+        \item $\forall \lambda \in \R$ sind die folgenden beiden Aussagen äquivalent:\\
+        1) $\forall \vect x \in \R^n: Q_A(\vect x) \geq \lambda \Vert
+        \vect x\Vert_2$\\
+        2) $\forall \vect x \in \R^n$ mit $\Vert \vect x\Vert_2 = 1: Q_A(\vect x) \geq \lambda$
+        \item $\forall \vect x \in \R^n: \vert Q_A(\vect x) \vert \leq \Vert A \vect x\Vert_F \cdot \Vert \vect x \Vert_2^2$
+    \end{itemize}
+    
+    \end{minipage}
+};
+
+%------------ Quadratische Formen Satz Header ---------------------
+\node[fancytitle, fill = blue, right=10pt] at (box.north west) {Quadratische Form Satz};
+\end{tikzpicture}
+
+%------------ Definitheit allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \begin{itemize}
+        \item $A$ und $Q_A$ heißen \textcolor{red}{positiv definit}, wenn\\ $\forall \vect x \neq \vect 0 \in \R^n: Q_A > 0$
+        \item $A$ und $Q_A$ heißen \textcolor{red}{positiv semidefinit}, wenn\\ $\forall \vect x \neq \vect 0 \in \R^n: Q_A \geq 0$
+        \item $A$ und $Q_A$ heißen \textcolor{red}{negativ definit}, wenn\\ $\forall \vect x \neq \vect 0 \in \R^n: Q_A < 0$
+        \item $A$ und $Q_A$ heißen \textcolor{red}{negativ semidefinit}, wenn\\ $\forall \vect x \neq \vect 0 \in \R^n: Q_A \leq 0$
+        \item $A$ und $Q_A$ heißen \textcolor{red}{indefinit}, wenn\\
+        sie weder positiv semidefinit, noch negativ semidefinit sind.
+    \end{itemize}
+    
+    \end{minipage}
+};
+
+%------------ Definitheit Header ---------------------
+\node[fancytitle, fill = black, right=10pt] at (box.north west) {Definitheit};
+\end{tikzpicture}
+
+%------------ Definitheit Satz allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \begin{itemize}
+        \item $A$ ist positiv definit $\iff$ alle Eigenwerte von $A$ sind positiv.
+        \item $A$ ist positiv semidefinit $\iff$ alle Eigenwerte von $A$ sind positiv oder Null.
+        \item $A$ ist negativ definit $\iff$ alle Eigenwerte von $A$ sind negativ.
+        \item $A$ ist negativ semidefinit $\iff$ alle Eigenwerte von $A$ sind negativ oder Null.
+    \end{itemize}
+    
+    \end{minipage}
+};
+
+%------------ Definitheit Satz Header ---------------------
+\node[fancytitle, fill = blue, right=10pt] at (box.north west) {Definitheit Satz};
+\end{tikzpicture}
+
+%------------ Quadratische Formen Beispiel allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Sei $A = \begin{pmatrix} a & b \\ b & c \end{pmatrix}$ und es ist\\
+    $Q_A:\R^2 \to \R, Q_A(x_1, x_2):= ax_1^2 + 2bx_1x_2 + cx_2^2$.\\
+    Es gilt:\\
+    $det(A) > 0$ und $a > 0 \iff A$ ist positiv definit
+    $det(A) > 0$ und $a < 0 \iff A$ ist negativ definit
+    $det(A) < 0 \iff A$ ist indefinit
+    
+    \end{minipage}
+};
+
+%------------ Quadratische Formen Beispiel Header ---------------------
+\node[fancytitle, fill = purple, right=10pt] at (box.north west) {Definitheit};
+\end{tikzpicture}
+
+
+%------------  stationärer/kritischer Punkt allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Sei $A \subseteq \R^n$ offen, $f: A\to \R$ und existieren alle partiellen Ableitung von $f$ in $\vect x^0$, so nennen wir $\vect x^0$ einen \textcolor{red}{stationären oder kritischen Punkt}, wenn $\nabla f(\vect x^0) = \vect 0$
+    
+    \end{minipage}
+};
+
+%------------  stationärer/kritischer Punkt Header ---------------------
+\node[fancytitle, fill = black, right=10pt] at (box.north west) {Stationärer/Kritischer Punkt};
+\end{tikzpicture}
+
+%------------  Satz von Fermat allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Sei $A \subseteq \R^n$ offen, $f: A\to \R$ und existieren alle partiellen Ableitung von $f$ in $\vect x^0$.\\Hat $f$ in $\vect x^0$ ein lokales Minimum oder ein lokales Maximum, so ist $\vect x^0$ eine stationäre Stelle von $f$.
+
+    
+    \end{minipage}
+};
+
+%------------  Satz von Fermat Header ---------------------
+\node[fancytitle, fill = blue, right=10pt] at (box.north west) {Satz von Fermat};
+\end{tikzpicture}
+
+%------------ Hessematrix allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Sei $A \subseteq \R^n$ offen und exisitieren alle partiellen Ableitungen 2-ter Ordnung von $f$ in $\vect x^0$, so definieren wir die \textcolor{red}{Hessematrix von $f$ an der Stelle $\vect x^0$} als:\\
+    $H_f(\vect x^0) = \begin{pmatrix} \partial_x \partial_x f(\vect x^0) & \partial_x \partial_y f(\vect x^0) \\ \partial_y \partial_x f(\vect x^0) & \partial_y \partial_y f(\vect x^0)\end{pmatrix}$
+    \end{minipage}
+};
+
+%------------ Hessematrix Header -------------------
+\node[fancytitle, fill = black, right=10pt] at (box.north west) {Hessematrix};
+\end{tikzpicture}
+
+%------------  Satz für hinreichende Bedingung allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Sei $A \subseteq \R^n$ offen, $f \in C^2(A)$ und sei $\vect x^0 \in A$ eine stationäre Stelle von $f$. Dann gilt:
+    \begin{itemize}
+        \item $H_f(\vect x^0)$ ist positiv definit $\implies$ $f$ hat ein strenges lokales Minimum in $\vect x^0$.
+        \item $H_f(\vect x^0)$ ist negativ definit $\implies$ $f$ hat ein strenges lokales Maximum in $\vect x^0$.
+        \item $H_f(\vect x^0)$ ist indefinit $\implies$ $f$ hat kein lokales Extremum in $\vect x^0$ (In dem Fall nennen wir $\vect x^0$ einen \textcolor{red}{Sattelpunkt von $f$}).
+        \item Ist $H_f(\vect x^0)$ negativ/positiv semidefinit, so kann keine Schlussfolgerung anhand der Hessematrix gemacht werden.
+    \end{itemize}
+    \end{minipage}
+};
+
+%------------  Satz für hinreichende Bedingung Header -------------------
+\node[fancytitle, fill = blue, right=10pt] at (box.north west) {Satz für hinreichende Bedingung};
+\end{tikzpicture}
+
+
+%------------  Zusammenfassendes Vorgehen allgemein---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Sei $A \subseteq \R^n$ offen, $f \in C^2(A)$.\\
+    1) Finde alle stationären Stellen von $f$, d.h. alle $\vect x$ mit $\nabla f(\vect x) = \vect 0$. Alle lokalen Extrema von $f$ müssen unter diesen bestimmten Stellen liegen (wenn $A$ offen ist).\\
+    2) Berechne die Hessematrix von $f$ an allen stationären Stellen $\vect x^0$. Benutze dann den "Satz für hinreichende Bedingung" um Schlussfolgerungen über diese Stellen zu machen.
+    \end{minipage}
+};
+
+%------------  Zusammenfassendes Vorgehen Header -------------------
+\node[fancytitle, fill = purple, right=10pt] at (box.north west) {Zusammenfassung für das Vorgehen};
+\end{tikzpicture}
+
+\end{multicols*}
+
+\end{document}

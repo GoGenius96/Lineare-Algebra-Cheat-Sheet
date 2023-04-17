@@ -1,0 +1,337 @@
+\documentclass{article}
+\usepackage[landscape]{geometry}
+\usepackage{url}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{esint}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing}
+\usepackage{amsmath,amssymb}
+
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\usepackage{amsmath,amssymb}
+
+\usepackage{enumerate}
+\usepackage{hyperref}
+\makeatletter
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\m}{\cdot}
+\newcommand{\vect}[1]{\mathbf{#1}} 
+\newenvironment{roweqmat}[1]{\left(\array{@{}#1@{}}}{\endarray\right)}
+
+\definecolor{mycolor}{HTML}{3C8031}
+
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+\title{Lineare Algebra für Statistiker Cheat Sheet}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+
+\advance\topmargin-.8in
+\advance\textheight3in
+\advance\textwidth3in
+\advance\oddsidemargin-1.5in
+\advance\evensidemargin-1.5in
+\parindent0pt
+\parskip2pt
+\newcommand{\hr}{\centerline{\rule{3.5in}{1pt}}}
+%\colorbox[HTML]{e4e4e4}{\makebox[\textwidth-2\fboxsep][l]{texto}
+\begin{document}
+
+\begin{multicols*}{3}
+
+\tikzstyle{mybox} = [draw=black, fill=white, very thick,
+    rectangle, rounded corners, inner sep=10pt, inner ysep=10pt]
+\tikzstyle{fancytitle} =[fill=black, text=white, font=\bfseries]
+
+%------------ Lineare Gleichung ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Eine \textcolor{red}{lineare Gleichung} in $\R^n$ mit Variablen $x_1, \dots, x_n \in \R$ und Koeffizienten $a_1, \dots, a_n, b \in \R$ hat die Form $a_1 x_1 + \dots + a_n x_n = b.$
+    \end{minipage}
+};
+
+%------------ Lineare Gleichung Header ---------------------
+\node[fancytitle, right=10pt] at (box.north west) {Lineare Gleichung};
+\end{tikzpicture}
+
+%------------ LGS ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Ein \textcolor{red}{lineares Gleichungssystem (LGS)} aus $m$ Gleichungen und $n$ Unbekannten $x_1, \dots, x_n$ hat die Form
+	\begin{alignat*}{6}
+		 & a_{11} x_1  & {}+{} & \dots           & {}+{} & a_{1n} x_n & {}={} & b_1  \\
+		 & a_{21}  x_1 & {}+{} & \dots           & {}+{} & a_{2n} x_n & {}={} & b_2  \\
+		 &             &       & \quad \; \vdots                                     \\
+		 & a_{m1}  x_1 & {}+{} & \dots           & {}+{} & a_{mn} x_n & {}={} & b_m.
+	\end{alignat*}
+     Wir nennen zwei LGS \textcolor{red}{äquivalent}, wenn sie die gleichen Lösungen besitzen. Ein LGS lässt sich vollständig durch die Koeffizienten beschreiben und kann daher auch in Form einer \textcolor{red}{(erweiterten) Koeffizientenmatrix} dargestellt werden.
+     \begin{align*}
+    		\begin{roweqmat}{ccc|c}
+    			a_{11} & \dots & a_{1n} & b_1 \\
+    			\vdots &   & \vdots & \vdots \\
+    			a_{m1} & \cdots & a_{mn} & b_m
+    		\end{roweqmat}.
+    	\end{align*}
+    Ohne die letzte Spalte spricht man von einer Koeffizientenmatrix.
+    \end{minipage}
+};
+%------------ LGS Header ---------------------
+\node[text=white, fancytitle, right=10pt] at (box.north west) {Lineares Gleichungssystem};
+\end{tikzpicture}
+
+%------------ LGS Beispiel ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+        \begin{minipage}{0.4\textwidth}
+    	\begin{alignat*}{6}
+    		 x_1 & {}+{}  & 5x_2 & {}+{} & 3x_3 & {}={} & -2 \\
+    		 2x_1 & {}+{} & 2x_2 & {}+{} & 4x_3 & ={} & 8 \\
+    		 -3x_1 & {}+{} & 2x_2 & {}+{} & 9x_3 & {}={} & -1
+    	\end{alignat*}
+    \end{minipage}
+    \begin{minipage}{0.4\textwidth}
+    	\begin{align*}
+    		\qquad \longrightarrow
+    	\begin{roweqmat}{rrr|r}
+    		1 & 5 & 3 & -2 \\
+    		2 & 2 & 4 & 8 \\
+    		-3 & 2 & 9 & -1
+    	\end{roweqmat}
+    \end{align*}
+    \end{minipage}
+    \end{minipage}
+};
+%------------ LGS Beispiel Header ---------------------
+\node[fill = blue, text=white, font=\bfseries, right=10pt] at (box.north west) {LGS Beispiel};
+\end{tikzpicture}
+
+%------------ Elementare Zeilenoperationen ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Um das LGS zu vereinfachen, ohne die Lösungsmenge zu ändern, sind folgende \textcolor{red}{elementare Zeilenoperationen} erlaubt:
+
+	\begin{enumerate}[(i)]
+		\item Multipliziere eine Zeile mit einer Konstante \\$c \neq 0$.
+		\item Tausche zwei Zeilen.
+		\item Addiere eine Zeile $c \neq 0$ mal zu einer anderen.
+	\end{enumerate}
+    \end{minipage}
+};
+%------------ Elementare Zeilenoperationen Header ---------------------
+\node[fill = purple, text=white, font=\bfseries, right=10pt] at (box.north west) {Elementare Zeilenoperationen};
+\end{tikzpicture}
+
+%------------ Zeilenstufenform ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Eine Matrix ist in \textcolor{red}{Zeilenstufenform}, wenn:
+	\begin{enumerate}[(i)]
+		\item Alle \textcolor{red}{Nullzeilen} (Zeilen, in der höchstens der letzte Eintrag ungleich 0 ist) befinden sich am Ende der Matrix.
+		\item Die \textcolor{red}{Pivots} (der erste Eintrag $a_{ji}$ einer Zeile ungleich Null: $j_i = \min\{j\colon a_{ij} \neq 0\})$ der anderen  Zeilen erfüllen die Stufenbedingung
+		      $$j_{1} < j_{2} < \dots < j_{r}.$$
+        Variablen die zu einer Pivot gehören nennen wir \textcolor{red}{gebunden} und die restlichen Variablen nennen wir \textcolor{red}{frei}
+	\end{enumerate}
+
+    Eine Matrix ist in \textcolor{red}{reduzierter Zeilenstufenform}, wenn sie die folgenden Bedingungen erfüllt:
+	\begin{enumerate}[(i)]
+		\item Sie ist in Zeilenstufenform.
+		\item Alle Pivoteinträge $a_{i j_i}$ sind gleich 1.
+		\item Alle Spalteneinträge über einem Pivot sind gleich 0.
+	\end{enumerate}
+    \end{minipage}
+};
+%------------ Zeilenstufenform Header ---------------------
+\node[fill = black, text=white, font=\bfseries, right=10pt] at (box.north west) {(reduzierte) Zeilenstufenform};
+\end{tikzpicture}
+
+%------------ LGS Zeilenstufenform Beispiel ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Das untere LGS ist in Zeilenstufenform, aber nicht in reduzierter Zeilenstufenform.\\
+    \begin{minipage}{0.4\textwidth}
+	\begin{alignat*}{4}
+		 & x_1 {}-{} & 2x_2 {}+{} & 6x_3 & {}={} & 2  \\
+		 &           & 7x_2 {}+{} & 3x_3 & {}={} & 2  \\
+		 &           &            & 3x_3 & {}={} & 2.
+	\end{alignat*}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+	\begin{align*}
+		\qquad \longrightarrow
+	\begin{roweqmat}{rrr|r}
+		1 & -2 & 6 & 2 \\
+		0 & 7 & 3 & 2 \\
+		0 & 0 & 3 & 2
+	\end{roweqmat}
+\end{align*}
+\end{minipage}
+    \end{minipage}
+};
+%------------ LGS Zeilenstufenform Beispiel Header ---------------------
+\node[fill = blue, text=white, font=\bfseries, right=10pt] at (box.north west) {LGS in Zeilenstufenform};
+\end{tikzpicture}
+
+%------------ Anzahl Lösungen ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \begin{enumerate}[(i)]
+		\item 	Ein LGS hat genau dann keine Lösung, wenn sich durch elementare Zeilenoperationen eine \emph{Nullzeile}
+		      $$ \begin{roweqmat}{rrrr|c} 0 & 0 & \cdots & 0 & c \end{roweqmat} $$
+		      mit $c \neq 0$ erzeugen lässt.
+		\item Ein lösbares LGS hat genau eine Lösung, wenn es keine freien Variablen gibt. Andernfalls gibt es unendlich viele Lösungen.
+	\end{enumerate}
+    \end{minipage}
+};
+%------------ Anzahl Lösungen Header ---------------------
+\node[fill = purple, text=white, font=\bfseries, right=10pt] at (box.north west) {Anzahl Lösungen};
+\end{tikzpicture}
+
+%------------ Elementare Zeilenoperationen Beispiele---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \begin{eqnarray*}
+		& & \begin{roweqmat}{rrr|c}
+			3 & 6 & -6 & 3 \\
+			1 & 2 & 0 & 3 \\
+			-2 & -1 & 9 & -2
+		\end{roweqmat} \\
+		&  \stackrel{\frac13 \cdot (1)}{\sim} &
+		\begin{roweqmat}{rrr|c}
+			1 & 2 & -2 & 1 \\
+			1 & 2 & 0 & 3 \\
+			-2 & -1 & 9 & -2
+		\end{roweqmat}
+		\\
+		& \stackrel{(2) - (1)}{\sim} &
+		\begin{roweqmat}{rrr|c}
+			1 & 2 & -2 & 1 \\
+			0 & 0 & 2 & 2 \\
+			-2 & -1 & 9 & -2
+		\end{roweqmat}
+		\\
+		& \stackrel{(2)\leftrightarrow (3)}{\sim} &
+		\begin{roweqmat}{rrr|c}
+			1 & 2 & -2 & 1 \\
+			-2 & -1 & 9 & -2  \\
+			0 & 0 & 2 & 2
+		\end{roweqmat}
+		\\
+		& \stackrel{(2) + 2 \cdot (1)}{\sim}	&
+		\begin{roweqmat}{rrr|c}
+			1 & 2 & -2 & 1 \\
+			0 & 3 & 5 & 0 \\
+			0 & 0 & 2 & 2
+		\end{roweqmat}.
+	\end{eqnarray*}
+ Jetzt ist die erweiterte Koeffizientenmatrix in Zeilenstufenform.
+    \begin{eqnarray*}
+		&  \stackrel{\frac13 \cdot (2)}{\sim} &
+		\begin{roweqmat}{rrr|c}
+			1 & 2 & -2 & 1 \\
+			0 & 1 & \frac53 & 0 \\
+			0 & 0 & 2 & 2
+		\end{roweqmat}
+		\\
+		& \stackrel{(1) - 2\cdot(2)}{\sim} &
+		\begin{roweqmat}{rrr|c}
+			1 & 0 & -\frac{16}{3}  & 1 \\
+			0 & 1 & \frac53 & 0 \\
+			0 & 0 & 2 & 2
+		\end{roweqmat}
+		\\
+		& \stackrel{\frac12 \cdot (3)}{\sim} &
+		\begin{roweqmat}{rrr|c}
+			1 & 0 & -\frac{16}{3}  & 1 \\
+			0 & 1 & \frac53 & 0 \\
+			0 & 0 & 1 & 1
+		\end{roweqmat}
+		\\
+		& \stackrel{(1) + \frac{16}{3} \cdot (3)}{\sim}	&
+		\begin{roweqmat}{rrr|c}
+			1 & 0 & 0 & \frac{19}{3} \\
+			0 & 1 & \frac53 & 0 \\
+			0 & 0 & 1 & 1
+		\end{roweqmat}
+        \\
+		& \stackrel{(2) - \frac{5}{3} \cdot (3)}{\sim}	&
+		\begin{roweqmat}{rrr|c}
+			1 & 0 & 0 & \frac{19}{3} \\
+			0 & 1 & 0 & - \frac53 \\
+			0 & 0 & 1 & 1
+		\end{roweqmat}
+	\end{eqnarray*}
+    Jetzt ist die erweiterte Koeffizientenmatrix in reduzierter Zeilenstufenform.
+    \end{minipage}
+};
+%------------ Elementare Zeilenoperationen Beispiele Header---------------------
+\node[fill = blue, text=white, font=\bfseries, right=10pt] at (box.north west) {Elementare Zeilenoperationen Beispiel};
+\end{tikzpicture}
+
+%------------ Gauss-Jordan-Verfahren ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Um die Lösungen von einem LGS zu bestimmen, kann man das Gauss-Jordan-Verfahren benutzen:
+    \begin{enumerate}[(i)]
+	\item Schreibe das LGS in eine Koeffizientenmatrix.
+	\item Bringe Matrix durch elementare Zeilenoperationen in Zeilenstufenform.
+	\item Stelle fest, ob das System lösbar ist.
+	\item Falls ja, reduziere die Matrix um Lösungen zu bestimmen.
+\end{enumerate}
+    \end{minipage}
+};
+%------------ Gauss-Jordan-Verfahren Header ---------------------
+\node[fill = mycolor, text=white, font=\bfseries, right=10pt] at (box.north west) {Gauss-Jordan-Verfahren};
+\end{tikzpicture}
+
+
+%------------ Überschrift ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    
+    \end{minipage}
+};
+%------------ Überschrift Header ---------------------
+\node[fill = black, text=white, font=\bfseries, right=10pt] at (box.north west) {Überschrift};
+\end{tikzpicture}
+
+
+
+
+%------------ Überschrift ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    
+    \end{minipage}
+};
+%------------ Überschrift Header ---------------------
+\node[fill = black, text=white, font=\bfseries, right=10pt] at (box.north west) {Überschrift};
+\end{tikzpicture}
+
+\end{multicols*}
+
+\end{document}
+
+

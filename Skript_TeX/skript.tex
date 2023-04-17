@@ -1,0 +1,289 @@
+% !TEX root = ../linalg-2022.tex
+
+% \section{Vektorrechnung}
+
+\section{Vektoren in \texorpdfstring{$\R^n$}{Rn}}  \label{sec:vektorrechnung}
+
+Ein LGS ist eine Beschreibung von Punkten im $n$-dimensional Raum $\R^n$. Wir wollen das zunächst formalisiern.
+\begin{definition}
+	Ein $n$-dimensionaler Vektor ist ein geordnetes $n$-Tupel $\bx = (x_1, \dots, x_n)$ von reellen Zahlen $x_1, \dots, x_n \in \R$, genannt Komponenten.
+\end{definition}
+
+\begin{definition}
+	Die Menge aller möglichen $n$-dimensionalen Vektoren ist der $n$-dimensionale reelle Standardraum
+	$$ \R^n = \{(x_1, \dots, x_n)\colon x_1, \dots, x_n \in \R \}.$$
+\end{definition}
+
+\noindent \textbf{Notation:}
+\begin{itemize}
+	\item Für gewöhnlich schreiben wir $\bx \in \R^n$ in Spaltenform:
+	      $$ \bx = \begin{pmatrix}
+			      x_1 \\ \vdots \\ x_n
+		      \end{pmatrix}.$$
+	\item Zwei Vektoren $\bx, \by \in \R^n$ sind gleich, wenn alle Einträge gleich sind:
+	      \begin{align*}
+		      \bx = \by \qquad \equivto \qquad  x_i = y_i \mbox{ für alle } i = 1, \dots, n.
+	      \end{align*}
+	\item 	Wir definieren den \cb{Nullvektor} als
+	      $$\bm 0 = (\underbrace{0, 0, 0, \dots}_{n \mbox{ \scriptsize{mal}}}),$$
+	      und den $j$-ten \cb{Einheitsvektor} als
+	      $$\be_j = (0, \dots, 0, \underbrace{1}_{j\mbox{\scriptsize{-te Stelle}}}, 0, \dots, 0).$$
+\end{itemize}
+
+In linearen Gleichungen verwenden wir nur zwei Operationen: Addition und Multiplikation mit Konstanten. Wir können diese Operationen auch für Vektoren definieren.
+\begin{definition} \label{def:2:vektoroperationen}
+	Seien $\bx, \by \in \R^n$.
+	\begin{itemize}
+		\item Vektoraddition:
+		      $$\bx + \by =\begin{pmatrix}
+				      x_1 \\ \vdots \\ x_n
+			      \end{pmatrix} + \begin{pmatrix}
+				      y_1 \\ \vdots \\  y_n
+			      \end{pmatrix} := \begin{pmatrix}
+				      x_1 + y_1 \\ \vdots \\ x_n + y_n
+			      \end{pmatrix}.$$
+		\item Multiplikation mit einem \textbf{Skalar} $\lambda \in \R$:
+		      $$ \lambda \cdot \bx := \begin{pmatrix}
+				      \lambda \cdot x_1 \\ \vdots \\ \lambda \cdot x_n
+			      \end{pmatrix}.$$
+	\end{itemize}
+\end{definition}
+
+\begin{figure}
+	\centering
+	\fig{2-vektor-matrix-eq/fig/vektoroperationen.png}
+	\caption{Graphische Darstellung von Vektoraddition und Multiplikation mit einem Skalar. (Bild 1.1 [FS])}
+	\label{fig:2:vektoraddition}
+\end{figure}
+
+In \cref{fig:2:vektoraddition} sind die beiden Operationen graphisch dargestellt. Vektoraddition lässt sich durch die Parallelogrammregel beschreiben. Wir zeichnen ein Parallelogramm mit dem Nullpunkt als Start. Die zwei anderen Ecken sind die Punkte $\bm x$ und $\bm y$. Dadurch ist die verbleibende Ecke eindeutig bestimmt. Sie beschreibt den Punkt $\bm x + \bm y$. Multiplikation mit einem Skalar\footnote{Ein Skalar ist eine einzelne Zahl. Ein Vektor sind mehrere Zahlen.}  $\lambda$ entspricht dem Strecken/Stauchen mit dem Faktor $\lambda$. Ist $\lambda < 0$, dreht sich die Richtung des Vektors (vom Nullpunkt aus gesehen).
+
+Aus \cref{def:2:vektoroperationen} folgen direkt einige Eigenschaften.
+\begin{theorem} \label{thm:2:vektoroperationen}
+	Für alle $\bx, \by, \bz \in \R^n$ und $c, d \in \R$ gilt:
+	\begin{enumerate}
+		\item $\bx + \by = \by + \bx$
+		\item $(\bx + \by) + \bz = \bx + (\by + \bz)$
+		\item $\bm x + \bm 0 = \bm x$
+		\item $\bx + (-\bx) = \bx - \bx = \bm 0$
+		\item $c(\bx + \by) = c\bx  + c\by$
+		\item $(c + d)\bx = c\bx + d\bx$
+		\item $c(d\bx) = (cd) \bx$
+		\item $1 \cdot \bm x = \bm x$
+	\end{enumerate}
+\end{theorem}
+
+
+\section{Linearkombinationen}
+
+Aus ein paar gegebenen Vektoren lassen sich durch Addition und Multiplikation mit Skalaren neue Vektoren erzeugen. Solche Vektoren verdienen einen Namen.
+
+\begin{definition} \label{def:2:linearkombination}
+	Wir nennen einen Vektor $\bb \in \R^n$ eine \cb{Linearkombination} von Vektoren $\ba_1, \dots, \ba_k$, wenn er sich als
+	$$\bb = c_1 \ba_1 + \cdots + c_k \ba_k$$
+	mit $c_1, \dots, c_k \in \R$ schreiben lässt.
+	Die Zahlen $c_1, \dots, c_k$ nennen wir Gewichte oder Koeffizienten.
+\end{definition}
+\begin{example}
+	Seien
+	$$\bb = \begin{pmatrix}
+			5 \\ -2 \\ 2
+		\end{pmatrix}, \quad \ba_1 = \begin{pmatrix}
+			0 \\ 1 \\ -1
+		\end{pmatrix}, \quad \ba_2 = \begin{pmatrix}
+			1 \\ 0 \\ 0
+		\end{pmatrix}.$$
+	Dann ist $\bb$ eine Linearkombination aus $\ba_1$ und $\ba_2$ mit Koeffizienten $c_1 = -2$ und $c_2 = 5$. Kurz: $\bb = -2 \ba_1 + 5 \ba_2$.
+\end{example}
+
+
+
+% \subsubsection*{Quiz}
+
+
+% Ist die folgende Aussage wahr oder falsch? \\[11pt]
+
+% \begin{quote}
+% 	Wenn $\bx$ eine Linearkombination aus $\by$ und $\bz$ ist, dann ist $\by$ auch eine Linearkombination aus $\bx$ und $\bz$.  \\[11pt]
+% \end{quote}
+
+
+% \begin{enumerate}
+% 	\item Wahr
+% 	\item Falsch <2->{}
+% \end{enumerate}
+
+Wir können nun ein allgemeines lineares Gleichungssystem auch als Vektorgleichung formulieren.
+Die Vektorgleichung
+\begin{align*}
+	x_1 \ba_1 + \cdots + x_n \ba_n = \bb
+\end{align*}
+ist äquivalent zum LGS mit erweiterter Koeffizientenmatrix
+$$ \begin{pmatrix}
+		\ba_1 & \ba_2 & \cdots & \ba_n \mid \bb
+	\end{pmatrix},$$
+wobei die Vektoren $\ba_1, \dots, \ba_n, \bb$ als Spalten der Koeffizientenmatrix zu verstehen sind. Aus \cref{def:2:linearkombination} folgt dann, dass das LGS  genau dann eine Lösung hat, wenn sich $\bb$ als Linearkombination aus $\ba_1, \dots, \ba_n$ schreiben lässt.
+
+
+Die Menge aller Linearkombination bezeichnen wir als Spann.
+
+\begin{definition} \label{def:2:spann}
+	Die Menge aller Linearkombinationen von gegeben Vektoren $\ba_1, \dots, \ba_k \in \R^n$ bezeichnen wir als \textbf{Spann} oder die von den Vektoren \textbf{aufgespannte Menge}:
+	$$\spann\{\ba_1, \dots, \ba_k\} = \{ c_1 \ba_1 + \cdots + c_k \ba_k\colon c_1, \dots, c_k \in \R\}.$$
+\end{definition}
+
+\begin{lemma}
+	Es gilt:
+	\begin{enumerate}[(i)]
+		\item $\bm 0 \in \spann\{\ba_1, \dots, \ba_k\}$,
+		\item $\bm \ba_i \in \spann\{\ba_1, \dots, \ba_k\}$ für alle $i = 1, \dots, k$,
+		\item $\bb \in \spann\{\ba_1, \dots, \ba_k\} \equivto$ LGS $(\ba_1 \quad \cdots \quad \ba_k \mid \bb)$ hat eine Lösung.
+	\end{enumerate}
+\end{lemma}
+\begin{proof} \quad \\[-12pt]
+	\begin{enumerate}[(i)]
+		\item Setze $c_1 = \cdots = c_k = 0$.
+		\item Setze $c_i = 1$ und $c_k = 0$ für alle $k \neq k$..
+		\item \begin{itemize}
+			      \item[$\impl$:] Wenn $\bb \in \spann\{\ba_1, \dots, \ba_k\}$, dann gibt es $c_1, \dots, c_k \in \R$, so dass $c_1 \ba_1 + \cdots + c_k \ba_k = \bb$. Also ist $\bm x = (c_1, \dots, c_k)$ eine Lösung für das LGS $(\ba_1 \quad \cdots \quad \ba_k \mid \bb)$.
+			      \item[$\implby$:] Sei $\bx$ eine Lösung des LGS $(\ba_1 \quad \cdots \quad \ba_k \mid \bb)$. Dann gilt $x_1 \ba_1 + \cdots + x_k \ba_k = \bb$, d.h.~ $\bb$ ist eine Linearkombination von $\ba_1, \dots, \ba_k$ mit Koeffizienten $x_1, \dots, x_n$. \qedhere
+		      \end{itemize}
+	\end{enumerate}
+\end{proof}
+
+
+\begin{figure}
+	\centering
+	\fig{2-vektor-matrix-eq/fig/span-viz.png}
+	\caption{Der Spann von einem Vektor (links) und zwei Vektoren (rechts). (Figure 10-11 aus [LLM])}
+	\label{fig:2:spann}
+\end{figure}
+
+\Cref{fig:2:spann} stellt den Spann graphisch dar. Der Spann eines Vektors $\bv \neq \bm 0$ ist eine Gerade, die den Nullpunkt mit dem Punkt $\bv$ verbindet. Der Spann zweier Vektoren $\bu \neq \bv \neq \bnull$ kann eine Ebene beschreiben. Ist allerdings $\bu = c \bv \neq \bnull$ mit $c \in \R$, dann spannen die Vektoren keine Ebene, sondern nur eine Gerade auf. Außerdem ist $\spann\{\bnull\} = \{\bnull\}$. 
+
+Daran sehen wir, dass die Dimension der aufgespannten Menge nicht nur von der Anzahl der Vektoren $\ba_1, \dots, \ba_k$ abhängt, sondern auch von den Vektoren selbst. Das lässt sich iterativ verstehen. Der Nullvektor $\bm 0$ ist in jedem Spann. Nehmen wir einen Vektor $\ba_1 \neq \bnull$ hinzu, bekommen wir alle Punkte in Richtung von $\ba_1$. Fügen wir einen nächsten Vektor $\ba_2$ hinzu, erweitert das den Spann nur, wenn er kein Vielfaches von $\ba_1$ ist. Nehmen wir $\ba_3$ hinzu, erweitert das den Spann nur, wenn sich $\ba_3$ nicht bereits als Linearkombination aus $\ba_1$ und $\ba_2$ schreiben lässt, usw. Auf diese Eigenschaft kommen wir in Kürze wieder zurück.
+
+\begin{example}
+
+	Sei
+	$$ \bm a_1 = \begin{pmatrix}
+			1 \\ 1 \\ 1 \\ 0
+		\end{pmatrix}, \qquad
+		\bm a_2 = \begin{pmatrix}
+			0 \\ 0 \\ 1 \\ 1
+		\end{pmatrix},  \qquad
+		\bm a_3 = \begin{pmatrix}
+			1 \\ 1 \\ 2 \\ 1
+		\end{pmatrix}, \qquad
+		\bm a_4 = \begin{pmatrix}
+			2 \\ 2 \\ 6 \\ 4
+		\end{pmatrix}.$$
+	Dann gilt $\spann\{\bm a_1, \dots, \bm a_4\} = \spann\{\bm a_1, \bm a_2\}$, weil sich $\ba_3$ und $\ba_4$ als Linearkombination von $\ba_1$ und $\ba_2$ schreiben lassen.
+\end{example}
+
+%----------------------------%	
+
+\section{Matrix-Vektor-Produkt}
+
+Ein allgemeines LGS lässt sich mithilfe von Matrizen noch kompakter schreiben.
+
+\begin{definition}
+	Eine rechteckiges Schema mit $m$ Zeilen und $n$ Spalten gefüllt mit reellen Zahlen $a_{ij} \in \R$,
+	$$A = \begin{pmatrix}
+			a_{11} & \cdots & a_{1n} \\
+			\vdots &        & \vdots \\
+			a_{m1} & \cdots & a_{mn} \\
+		\end{pmatrix},$$
+	bezeichnen wir als \textbf{$(m \times n)$-Matrix} und schreiben $A \in \R^{m \times n}$.
+\end{definition}
+
+Um die linke Seite eines LGS auszudrücken, ``multiplizieren'' wir diese Matrix mit den Unbekannten $\bm x$.
+
+\begin{definition} \label{def:2:Matrix-Vektor-Produkt}
+	Das \cb{Matrix-Vektor-Produkt} von $A \in \R^{m \times n}$ mit Spalten $\ba_1, \dots, \ba_n$ und $\bm x \in \R^n$ ist definiert als
+	$$A \bx = x_1 \ba_1 + \cdots + x_n \ba_n.$$
+\end{definition}
+
+
+$A\bx$ ist also  eine Linearkombination der Spalten in $A$. Das bedeutet auch, dass $\bx$ so viele Komponenten haben muss, wie es Spalten in $A$ gibt. Formell: Ist $A \in \R^{m\times n}$, dann muss $\bx \in \R^n$ sein.
+\begin{example}
+	Das Matrix-Vektor-Produkt
+	$$ \begin{pmatrix}
+			1 & 2  \\
+			3 & -2 \\
+			0 & 1
+		\end{pmatrix} \begin{pmatrix}
+			1 \\ -4 \\ 3
+		\end{pmatrix}  $$
+	existiert nicht. Der Vektor hat drei Komponenten, die Matrix aber nur zwei Spalten.
+\end{example}
+
+Das Matrix-Vektor-Produkt ist auch außerhalb von LGS nützlich. Das Produkt $A\bx$ ergibt einen neuen Vektor $\bb$. Diesen Vektor kann man wie folgt berechnen:
+$$\begin{pmatrix}
+		\cgreen{a_{11}} & \cdots & \cgreen{a_{1n}} \\
+		\vdots          &        & \vdots          \\
+		\cpurp{a_{m1}}  & \cdots & \cpurp{a_{mn}}  \\
+	\end{pmatrix} \begin{pmatrix}
+		x_1 \\ \vdots \\ x_n
+	\end{pmatrix} =  \begin{pmatrix}
+		x_1 \cgreen{a_{11}} + \cdots + x_n \cgreen{a_{1n}} \\
+		\vdots                                             \\
+		x_1 \cpurp{a_{m1}} + \cdots + x_n \cpurp{a_{mn}}
+	\end{pmatrix}.$$
+
+\begin{example}
+	Es gilt
+	$$ \begin{pmatrix}
+			1 & 2  \\
+			3 & -2 \\
+			0 & 1
+		\end{pmatrix} \begin{pmatrix}
+			1 \\ -4
+		\end{pmatrix} = \begin{pmatrix}
+			-7 \\ 11 \\ -4
+		\end{pmatrix} $$
+\end{example}
+
+\Cref{def:2:Matrix-Vektor-Produkt} ergibt direkt die folgenden Eigenschaften.
+
+
+\begin{theorem}[Rechenregeln Matrix-Vektor-Produkt] \label{thm:1:rechenregeln}
+	Sei $A \in \R^{m \times n}$, $\bx, \by \in \R^n$ und $c \in \R$. Dann gilt:
+	\begin{enumerate}[(i)]
+		\item $A(\bx + \by) = A\bx + A\by$,
+		\item $A(c\bx) = c(A\bx)$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	Aus \cref{def:2:Matrix-Vektor-Produkt} und \cref{thm:2:vektoroperationen} folgt
+	\begin{align*}
+		A(\bx + \by) & = \ba_1 (x_1 + y_1) + \cdots + \ba_n (x_n + y_n)                        \\
+		             & = (\ba_1 x_1 + \ba_1 y_1) + \cdots + (\ba_n x_n + \ba_n y_n)            \\
+		             & = (\ba_1 x_1 + \cdots +  \ba_n x_n)  + (\ba_1 y_1 + \cdots + \ba_n y_n) \\
+		             & = A\bx + A\by.
+	\end{align*}
+	Das beweist $(i)$. Eigenschaft $(ii)$ ist dem Leser als Übung überlassen.
+\end{proof}
+
+
+Wir können jetzt ein LGS mit erweiterter Koeffizientenmatrix $(\ba_1 \cdots \ba_n \mid \bb)$ kompakt als Vektorgleichung $A\bx = \bb$ schreiben. Wie eingangs erwähnt sind LGS und deren Lösungen der Kern der linearen Algebra. Das folgende Resultat charakterisiert diese Lösungen und verknüpft dabei die bisher gelernten Konzepte. Wir machen diese Verbindungen in einer besonders starken Form, nämlich durch \emph{Äquivalenzen}. Entweder sind alle Aussagen gleichzeitig wahr oder gleichzeitig falsch. 
+
+\begin{theorem} \label{thm:2:equiv}
+	Sei $A \in \R^{m \times n}$. Die folgenden Aussagen sind äquivalent:
+	\begin{enumerate}[(i)]
+		\item $A \bx = \bb$ hat eine Lösung für jedes $\bb \in \R^m$.
+		\item Jedes $\bb \in \R^m$ ist eine Linearkombination der Spalten von $A$.
+		\item $\spann\{\ba_1, \dots, \ba_n\} = \R^m$.
+		\item $A$ hat ein Pivot in jeder Zeile.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	Äquivalenz der Aussagen (a)--(c) folgt direkt von denen Definitionen des Matrix-Vektor-Produkts (\cref{def:2:Matrix-Vektor-Produkt}), der Linearkombination (\cref{def:2:linearkombination}) und des Spanns (\cref{def:2:spann}). Wir zeigen nun die Äquivalenz $(i) \equivto (iv)$. Sei $U$ eine Zeilenstufenform von $A$. Dann gibt es ein $\bd \in \R^m$, sodass wir $(A \mid \bb)$ durch Zeilenoperationen in $(U \mid \bd)$ überführen können.
+
+	\begin{itemize}
+		\item $(iv) \impl (i)$: Wenn $(iv)$ wahr ist, dann gibt es keine Nullzeile in $U$. Also ist das LGS $U\bx = \bd$ lösbar für jedes $\bd$ und damit auch $A\bx = \bb$ für jedes $\bb$.
+		\item $(i) \impl (iv)$: Wir zeigen diese Richtung durch Kontraposition. Wenn $(iv)$ nicht wahr ist, dann gibt es eine Nullzeile in $U$. Sei $\bd$ ein Vektor, dessen letzter Eintrag ungleich Null ist. Dann hat das System $U\bx = \bd$ keine Lösung. Machen wir die Zeilenoperationen rückgängig, finden wir ein $\bb$, sodass $A \bx = \bb$ keine Lösung hat. \qedhere
+	\end{itemize}
+\end{proof}
