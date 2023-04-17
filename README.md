@@ -1,5 +1,6 @@
 # Lineare-Algebra-Cheat-Sheet
-Zusammenfassung von Analysis 2
+
+Zusammenfassung von Lineare Algebra für Statistik
 
 Definition sind schwarz  
 Sätze/Theoreme/Lemmatas/etc. sind blau  
