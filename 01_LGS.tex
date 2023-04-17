@@ -1,53 +1,5 @@
-\documentclass{article}
-\usepackage[landscape]{geometry}
-\usepackage{url}
-\usepackage{multicol}
-\usepackage{amsmath}
-\usepackage{esint}
-\usepackage{amsfonts}
-\usepackage{tikz}
-\usetikzlibrary{decorations.pathmorphing}
-\usepackage{amsmath,amssymb}
 
-\usepackage{colortbl}
-\usepackage{xcolor}
-\usepackage{mathtools}
-\usepackage{amsmath,amssymb}
-
-\usepackage{enumerate}
-\usepackage{hyperref}
-\makeatletter
-
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\K}{\mathbb{K}}
-\newcommand{\m}{\cdot}
-\newcommand{\vect}[1]{\mathbf{#1}} 
-\newenvironment{roweqmat}[1]{\left(\array{@{}#1@{}}}{\endarray\right)}
-
-\definecolor{mycolor}{HTML}{3C8031}
-
-\newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
-\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
-\makeatother
-
-\title{Lineare Algebra für Statistiker Cheat Sheet}
-\usepackage[brazilian]{babel}
-\usepackage[utf8]{inputenc}
-
-\advance\topmargin-.8in
-\advance\textheight3in
-\advance\textwidth3in
-\advance\oddsidemargin-1.5in
-\advance\evensidemargin-1.5in
-\parindent0pt
-\parskip2pt
-\newcommand{\hr}{\centerline{\rule{3.5in}{1pt}}}
-%\colorbox[HTML]{e4e4e4}{\makebox[\textwidth-2\fboxsep][l]{texto}
-\begin{document}
+\section*{Kapitel 1 - Lineare Gleichungssysteme in $\R^n$}
 
 \begin{multicols*}{3}
 
@@ -305,16 +257,238 @@
 \end{tikzpicture}
 
 
-%------------ Überschrift ---------------
+%------------ Vektor in \R^n ---------------
 \begin{tikzpicture}
 \node [mybox] (box){%
     \begin{minipage}{0.3\textwidth}
-    
+    Ein \tc{$n$-dimensionaler Vektor} ist ein geordnetes $n$-Tupel $\bx = (x_1, \dots, x_n)$ von reellen Zahlen $x_1, \dots, x_n \in \R$, genannt Komponenten.
+    \begin{itemize}
+	\item Wir schreiben $\bx \in \R^n$ in Spaltenform:
+	      $$ \bx = \begin{pmatrix}
+			      x_1 \\ \vdots \\ x_n
+		      \end{pmatrix}.$$
+	\item $\bx = \by  \equivto \  x_i = y_i \mbox{ für alle } i = 1, \dots, n.$
+	     
+	\item 	Wir definieren den \tc{Nullvektor} als
+	      $$\bm 0 = (\underbrace{0, 0, 0, \dots}_{n \mbox{ \scriptsize{mal}}}),$$
+	      und den $j$-ten \tc{Einheitsvektor} als
+	      $$\be_j = (0, \dots, 0, \underbrace{1}_{j\mbox{\scriptsize{-te Stelle}}}, 0, \dots, 0).$$
+    \item Vektoraddition:
+		      $$\bx + \by =\begin{pmatrix}
+				      x_1 \\ \vdots \\ x_n
+			      \end{pmatrix} + \begin{pmatrix}
+				      y_1 \\ \vdots \\  y_n
+			      \end{pmatrix} := \begin{pmatrix}
+				      x_1 + y_1 \\ \vdots \\ x_n + y_n
+			      \end{pmatrix}.$$
+	\item Multiplikation mit einem \textbf{Skalar} $\lambda \in \R$:
+		      $$ \lambda \cdot \bx := \begin{pmatrix}
+				      \lambda \cdot x_1 \\ \vdots \\ \lambda \cdot x_n
+			      \end{pmatrix}.$$
+    \end{itemize}
     \end{minipage}
 };
-%------------ Überschrift Header ---------------------
-\node[fill = black, text=white, font=\bfseries, right=10pt] at (box.north west) {Überschrift};
+%------------ Vektor in \R^n Header ---------------------
+\node[fill = black, text=white, font=\bfseries, right=10pt] at (box.north west) {Vektor in $\R^n$};
 \end{tikzpicture}
+
+
+%------------ Standardraum ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Die Menge aller möglichen $n$-dimensionalen Vektoren ist der \tc{$n$-dimensionale reelle Standardraum}
+	$$\R^n = \{(x_1, \dots, x_n)\colon x_1, \dots, x_n \in \R \}.$$
+    \end{minipage}
+};
+%------------ Standardraum Header ---------------------
+\node[fill = black, text=white, font=\bfseries, right=10pt] at (box.north west) {Standardraum};
+\end{tikzpicture}
+
+
+
+%------------ Vektorrechenregeln ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Für alle $\bx, \by, \bz \in \R^n$ und $c, d \in \R$ gilt:
+	\begin{enumerate}
+		\item $\bx + \by = \by + \bx$
+		\item $(\bx + \by) + \bz = \bx + (\by + \bz)$
+		\item $\bm x + \bm 0 = \bm x$
+		\item $\bx + (-\bx) = \bx - \bx = \bm 0$
+		\item $c(\bx + \by) = c\bx  + c\by$
+		\item $(c + d)\bx = c\bx + d\bx$
+		\item $c(d\bx) = (cd) \bx$
+		\item $1 \cdot \bm x = \bm x$
+	\end{enumerate}
+    \end{minipage}
+};
+%------------ Vektorrechenregeln Header ---------------------
+\node[fill = purple, text=white, font=\bfseries, right=10pt] at (box.north west) {Vektorrechenregeln};
+\end{tikzpicture}
+
+%------------ Linearkombinationen ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Wir nennen einen Vektor $\bb \in \R^n$ eine \tc{Linearkombination} von Vektoren $\ba_1, \dots, \ba_k$, wenn er sich als
+	$$\bb = c_1 \ba_1 + \cdots + c_k \ba_k$$
+	mit $c_1, \dots, c_k \in \R$ schreiben lässt.
+	Die Zahlen $c_1, \dots, c_k$ nennen wir Gewichte oder Koeffizienten.
+    \end{minipage}
+};
+%------------ Linearkombinationen Header ---------------------
+\node[fill = black, text=white, font=\bfseries, right=10pt] at (box.north west) {Linearkombinationen};
+\end{tikzpicture}
+
+%------------ Linearkombinationen Beispiel ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+	$$\bb = \begin{pmatrix}
+			5 \\ -2 \\ 2
+		\end{pmatrix}, \quad \ba_1 = \begin{pmatrix}
+			0 \\ 1 \\ -1
+		\end{pmatrix}, \quad \ba_2 = \begin{pmatrix}
+			1 \\ 0 \\ 0
+		\end{pmatrix}.$$
+	$\bb$ ist eine Linearkombination aus $\ba_1$ und $\ba_2$ mit Koeffizienten $c_1 = -2$ und $c_2 = 5$. Kurz: $\bb = -2 \ba_1 + 5 \ba_2$.
+    \end{minipage}
+};
+%------------ Linearkombinationen Beispiel Header ---------------------
+\node[fill = blue, text=white, font=\bfseries, right=10pt] at (box.north west) {Linearkombinationen Beispiel};
+\end{tikzpicture}
+
+%------------ Spann ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Die Menge aller Linearkombinationen von gegeben Vektoren $\ba_1, \dots, \ba_k \in \R^n$ bezeichnen wir als \tc{Spann} oder die von den Vektoren \tc{aufgespannte Menge}:
+	$$\spann\{\ba_1, \dots, \ba_k\} = \{ c_1 \ba_1 + \cdots + c_k \ba_k\colon c_1, \dots, c_k \in \R\}.$$
+    \end{minipage}
+};
+%------------ Spann Header ---------------------
+\node[fill = black, text=white, font=\bfseries, right=10pt] at (box.north west) {Spann};
+\end{tikzpicture}
+
+%------------ Lemma zum Spann ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \begin{enumerate}[(i)]
+		\item $\bm 0 \in \spann\{\ba_1, \dots, \ba_k\}$,
+		\item $\bm \ba_i \in \spann\{\ba_1, \dots, \ba_k\}$ für alle $i = 1, \dots, k$,
+		\item LGS $(\ba_1 \quad \cdots \quad \ba_k \mid \bb)$ hat eine Lösung \\$\equivto \bb \in \spann\{\ba_1, \dots, \ba_k\}$ 
+	\end{enumerate}
+    \end{minipage}
+};
+%------------ Lemma zum Spann Header ---------------------
+\node[fill = purple, text=white, font=\bfseries, right=10pt] at (box.north west) {Lemma zum Spann};
+\end{tikzpicture}
+
+%------------ Spann Visualisierung ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \fig{fig/span-viz.png}
+    \end{minipage}
+};
+%------------ Spann Visualisierung Header ---------------------
+\node[fill = black, text=white, font=\bfseries, right=10pt] at (box.north west) {Spann Visualisierung};
+\end{tikzpicture}
+
+%------------ Matrix ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Eine rechteckiges Schema mit $m$ Zeilen und $n$ Spalten gefüllt mit reellen Zahlen $a_{ij} \in \R$,
+	$$A = \begin{pmatrix}
+			a_{11} & \cdots & a_{1n} \\
+			\vdots &        & \vdots \\
+			a_{m1} & \cdots & a_{mn} \\
+		\end{pmatrix},$$
+	bezeichnen wir als \tc{$(m \times n)$-Matrix} und schreiben $A \in \R^{m \times n}$.
+    \end{minipage}
+};
+%------------ Matrix Header ---------------------
+\node[fill = black, text=white, font=\bfseries, right=10pt] at (box.north west) {Matrix};
+\end{tikzpicture}
+
+%------------ Matrix-Vektor-Produkt ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Das \tc{Matrix-Vektor-Produkt} von $A \in \R^{m \times n}$ mit Spalten $\ba_1, \dots, \ba_n$ und $\bm x \in \R^n$ ist definiert als
+	$$A \bx = x_1 \ba_1 + \cdots + x_n \ba_n.$$
+    \end{minipage}
+};
+%------------ Matrix-Vektor-Produkt Header ---------------------
+\node[fill = black, text=white, font=\bfseries, right=10pt] at (box.north west) {Matrix-Vektor-Produkt};
+\end{tikzpicture}
+
+
+%------------ Matrix-Vektor-Produkt Beispiel ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    $\begin{pmatrix}
+			1 & 2  \\
+			3 & -2 \\
+			0 & 1
+		\end{pmatrix} \begin{pmatrix}
+			1 \\ -4
+		\end{pmatrix} = 1 \cdot \begin{pmatrix}
+			1 \\ 3 \\ 0
+		\end{pmatrix} - 4 \cdot\begin{pmatrix}
+			2 \\ -2 \\ 1
+		\end{pmatrix}
+        = \begin{pmatrix}
+			-7 \\ 11 \\ -4
+		\end{pmatrix} $
+    \end{minipage}
+};
+%------------ Matrix-Vektor-Produkt Beispiel Header ---------------------
+\node[fill = blue, text=white, font=\bfseries, right=10pt] at (box.north west) {Matrix-Vektor-Produkt Beispiel};
+\end{tikzpicture}
+
+
+%------------ Rechenregeln Matrix-Vektor-Produkt ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Sei $A \in \R^{m \times n}$, $\bx, \by \in \R^n$ und $c \in \R$. Dann gilt:
+	\begin{enumerate}[(i)]
+		\item $A(\bx + \by) = A\bx + A\by$,
+		\item $A(c\bx) = c(A\bx)$.
+	\end{enumerate}
+    \end{minipage}
+};
+%------------ Rechenregeln Matrix-Vektor-Produkt Header ---------------------
+\node[fill = purple, text=white, font=\bfseries, right=10pt] at (box.north west) {Rechenregeln Matrix-Vektor-Produkt};
+\end{tikzpicture}
+
+%------------ Megatheorem ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Sei $A \in \R^{m \times n}$. Die folgenden Aussagen sind äquivalent:
+	\begin{enumerate}[(i)]
+		\item $A \bx = \bb$ hat eine Lösung für jedes $\bb \in \R^m$.
+		\item Jedes $\bb \in \R^m$ ist eine Linearkombination der Spalten von $A$.
+		\item $\spann\{\ba_1, \dots, \ba_n\} = \R^m$.
+		\item $A$ hat ein Pivot in jeder Zeile.
+	\end{enumerate}
+    \end{minipage}
+};
+%------------ Megatheorem Header ---------------------
+\node[fill = purple, text=white, font=\bfseries, right=10pt] at (box.north west) {Megatheorem};
+\end{tikzpicture}
+
+
+
+
+
 
 
 
@@ -332,6 +506,5 @@
 
 \end{multicols*}
 
-\end{document}
 
 

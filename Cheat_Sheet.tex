@@ -1,44 +1,64 @@
 
 \documentclass{article}
+
+
+\usepackage{lmodern}
+\usepackage[german]{babel} 
+\usepackage{csquotes}
+\MakeOuterQuote{"} 
+
+\usepackage{graphicx}
+\usepackage{enumerate}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{dsfont}
+\usepackage{bm}
+
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks  = true,
+	urlcolor    = LMUpurple,
+	linkcolor   = LMUgreen,
+	citecolor   = LMUgreen
+}
+\usepackage[capitalize,nameinlink]{cleveref}
+\Crefname{chapter}{Kapitel}{Kapitel}
+\Crefname{section}{Abschnitt}{Abschnitte}
+\Crefname{subsection}{Abschnitt}{Abschnitte}
+\Crefname{figure}{Abbildung}{Abbildungen}
+\Crefname{subfigure}{Abbildung}{Abbildungen}
+
+\usepackage{bookmark}
+
 \usepackage[landscape]{geometry}
 \usepackage{url}
 \usepackage{multicol}
-\usepackage{amsmath}
 \usepackage{esint}
-\usepackage{amsfonts}
-\usepackage{tikz}
 \usetikzlibrary{decorations.pathmorphing}
-\usepackage{amsmath,amssymb}
-
-
 \usepackage{colortbl}
 \usepackage{xcolor}
 \usepackage{mathtools}
-\usepackage{amsmath,amssymb}
-\usepackage{enumerate}
-\usepackage{hyperref}
-\usepackage{blindtext}
+
+
+%\usepackage{blindtext}
 \usepackage{subfiles}
 \makeatletter
 
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\K}{\mathbb{K}}
-\newcommand{\m}{\cdot}
-\newcommand{\vect}[1]{\mathbf{#1}} 
 
-\newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
-\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
-\newenvironment{roweqmat}[1]{\left(\array{@{}#1@{}}}{\endarray\right)}
-\definecolor{mycolor}{HTML}{3C8031}
+\input{shortcuts.tex}
+
+
 \makeatother
 
 \title{Lineare Algebra für Statistiker Cheat Sheet}
-\usepackage[brazilian]{babel}
-\usepackage[utf8]{inputenc}
+
 
 \advance\topmargin-.8in
 \advance\textheight3in
@@ -47,18 +67,12 @@
 \advance\evensidemargin-1.5in
 \parindent0pt
 \parskip2pt
-\newcommand{\hr}{\centerline{\rule{3.5in}{1pt}}}
 
 \begin{document}
 
-\section*{Kapitel 1 - Lineare Gleichungssysteme in $\R^n$}
-\subfile{01_LGS}
+% Dokumente einfügen
 
-\section*{Kapitel 2 - Differentialrechnung im $\R^n$}
-\subfile{Kapitel_2}
-
-\section*{Kapitel 3 - Extremwerte und stationäre Punkte}
-\subfile{Kapitel_3}
+\input{01_LGS.tex}
 
 
 \end{document}
