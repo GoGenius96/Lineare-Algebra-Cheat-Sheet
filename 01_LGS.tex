@@ -468,6 +468,133 @@
 \node[fill = purple, text=white, font=\bfseries, right=10pt] at (box.north west) {Rechenregeln Matrix-Vektor-Produkt};
 \end{tikzpicture}
 
+%------------ (in)homogenes LGS ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+		Ein LGS der Form $A\bx = \bm 0$ wird \tc{homogen} genannt.\\
+		Der Nullvektor $\bm 0$ ist immer eine Lösung des homogenen LGS und wir nennen das die \tc{triviale Lösung}.\\
+		Ein LGS der Form $A\bx = \bm b$ mit $\bb \neq \bm 0$ wird \tc{inhomogen} genannt.
+    \end{minipage}
+};
+%------------ (in)homogenes LGS Header ---------------------
+\node[fill = black, text=white, font=\bfseries, right=10pt] at (box.north west) {(in)homogenes LGS};
+\end{tikzpicture}
+
+
+%------------ Lösungsmenge homogener LGS ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+		Ein homogenes System hat genau dann nicht-triviale Lösungen, wenn es zumindest eine freie Variable gibt.\\
+		Die Lösungsmenge eines homogenen LGS kann als $\spann\{\bv_1, \dots, \bv_k\}$ für Vektoren $\bv_1, \dots, \bv_k$ geschrieben werden.
+    \end{minipage}
+};
+%------------ Lösungsmenge homogener LGS Header ---------------------
+\node[fill = purple, text=white, font=\bfseries, right=10pt] at (box.north west) {Lösungsmenge homogener LGS};
+\end{tikzpicture}
+
+%------------ Lösungsmenge inhomogener LGS ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Sei $\L_h = \{\bx \colon A\bx = \bnull\}$ und $\bx_0$ ein Vektor mit  $A\bx_0 = \bb$. Dann ist Menge aller Lösungen des inhomogenen Systems
+  	$$\L_i = \{\bx_0 + \bx_h\colon \bx_h \in \L_h\}.$$
+    \end{minipage}
+};
+%------------ Lösungsmenge inhomogener LGS Header ---------------------
+\node[fill = purple, text=white, font=\bfseries, right=10pt] at (box.north west) {Lösungsmenge inhomogener LGS};
+\end{tikzpicture}
+
+%------------ Lösungsmenge inhomogener LGS Beispiel ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Wir betrachten das folgende LGS in reduzierter Zeilenstufen
+	\begin{align*}
+    \begin{roweqmat}{rrrr|c}
+      1 & 0 & 3 & 0 & 1 \\
+      0 & 1 & -2 & 5 & -4 \\
+      0 & 0 & 0 & 0 & 0
+    \end{roweqmat}
+  	\end{align*}
+	was wir wiefolgt ausdrücken können:
+	$$\begin{array}{rrrrrrr}
+      x_1 & = & 1 & + & - 3x_3 & + & 0x_4 \\
+      x_2 & = & -4 & + & 2x_3   & + & -5x_4 \\
+      x_3 & = & 0 & + & 1x_3   & + & 0x_4 \\
+      x_4 & = & 0 & + & 0x_3   & + & 1x_4
+    \end{array}.$$
+	Damit lässt jeder Lösungsvektor schreiben als
+	\begin{align*}
+		\begin{pmatrix}
+		  x_1 \\ x_2 \\ x_3 \\ x_4
+		\end{pmatrix} = \begin{pmatrix}
+			1 \\ -4 \\ 0 \\ 0
+		  \end{pmatrix} + c_3 \begin{pmatrix}
+		  -3 \\ 2 \\ 1 \\ 0
+		\end{pmatrix} + c_4 \begin{pmatrix}
+		  0 \\ -5 \\ 0 \\ 1
+		\end{pmatrix}, \quad c_3, c_4 \in \R,
+	  \end{align*}
+	  Wenn wir die rechte Seite zu $\bm 0$ ändern, dann lässt sich die Lösungsmenge schreiben als
+	  \begin{align*}
+		\L_h = \spann\biggl\{\begin{pmatrix}
+		  -3 \\ 2 \\ 1 \\ 0
+		\end{pmatrix}, 
+		\begin{pmatrix}
+		  0 \\ -5 \\ 0 \\ 1
+		\end{pmatrix} \biggr\}.
+	  \end{align*}
+    \end{minipage}
+};
+%------------ Lösungsmenge inhomogener LGS Beispiel Header ---------------------
+\node[fill = blue, text=white, font=\bfseries, right=10pt] at (box.north west) {Lösungsmenge (in)homogener LGS Beispiel};
+\end{tikzpicture}
+
+%------------ Lineare (Un)Abhängigkeit ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    Eine Menge von Vektoren $\bv_1, \dots, \bv_k \in \R^n$ sind \tc{linear unabhängig}, wenn die Vektorgleichung
+  	$$x_1 \bv_1 + \cdots + x_k \bv_k = \bnull$$
+  	nur die triviale Lösung $\bx = \bnull$ besitzt. Andernfalls nennen wir die Vektoren \tc{linear abhängig}.
+    \end{minipage}
+};
+%------------ Lineare (Un)Abhängigkeit Header ---------------------
+\node[fill = black, text=white, font=\bfseries, right=10pt] at (box.north west) {Lineare (Un)Abhängigkeit};
+\end{tikzpicture}
+
+%------------ Lineare (Un)Abhängigkeit ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+    \fig{fig/unabh-2d.png}
+	zeigt zwei linear abhängige (links und mitte) und unabhängige (rechts) Vektoren.
+    \end{minipage}
+};
+%------------ Lineare (Un)Abhängigkeit Header ---------------------
+\node[fill = blue, text=white, font=\bfseries, right=10pt] at (box.north west) {Lineare (Un)Abhängigkeit Beispiel};
+\end{tikzpicture}
+
+
+%------------ Lineare (Un)Abhängigkeit Theorem ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.3\textwidth}
+	\begin{itemize}
+    \item Eine Menge $M = \{\bv_1, \dots, \bv_k\}$ ist genau dann linear abhängig, wenn es ein $\bv_j \in M$ gibt, so dass 	$\bv_j \in \spann(M \setminus \{\bv_j\})$.
+	\item Jede Menge $\{\bv_1, \dots, \bv_k\} \subset \R^n$ mit $k > n$ ist linear abhängig.
+	\item Jede Menge $M = \{\bv_1, \dots, \bv_k\}$ mit $\bnull \in M$ ist linear abhängig.
+	\end{itemize}
+    \end{minipage}
+};
+%------------ Lineare (Un)Abhängigkeit Theorem Header -----------------
+\node[fill = purple, text=white, font=\bfseries, right=10pt] at (box.north west) {Lineare (Un)Abhängigkeit Theorem};
+\end{tikzpicture}
+
+
+
 %------------ Megatheorem ---------------
 \begin{tikzpicture}
 \node [mybox] (box){%
@@ -484,13 +611,6 @@
 %------------ Megatheorem Header ---------------------
 \node[fill = purple, text=white, font=\bfseries, right=10pt] at (box.north west) {Megatheorem};
 \end{tikzpicture}
-
-
-
-
-
-
-
 
 
 %------------ Überschrift ---------------
